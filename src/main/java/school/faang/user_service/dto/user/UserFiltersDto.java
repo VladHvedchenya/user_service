@@ -5,5 +5,4 @@ public record UserFiltersDto(
         String phonePattern,
         Integer experienceMin,
         Integer experienceMax
-) {
-}
+) {}
