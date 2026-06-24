@@ -25,11 +25,11 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Override
     @Transactional
     public void followUser(Long followerId, Long followeeId) {
-        if (followerId.equals(followeeId)){
+        if (followerId.equals(followeeId)) {
             throw new DataValidationException("Вы не можете подписаться сами на себя!");
         }
         log.info("{} пытается подписаться на {}", followerId, followeeId);
-        if (subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)){
+        if (subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)) {
             throw new DataValidationException("Вы уже подписаны на этого пользователя!");
         }
         subscriptionRepository.followUser(followerId, followeeId);
@@ -38,11 +38,11 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Override
     @Transactional
     public void unFollowUser(Long followerId, Long followeeId) {
-        if (followerId.equals(followeeId)){
+        if (followerId.equals(followeeId)) {
             throw new DataValidationException("Вы не можете отписаться сами от себя!");
         }
         log.info("{} пытается отписаться от {}", followerId, followeeId);
-        if (!subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)){
+        if (!subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)) {
             throw new DataValidationException("Вы не можете отписаться, потому что и так не подписаны!");
         }
         subscriptionRepository.unfollowUser(followerId, followeeId);

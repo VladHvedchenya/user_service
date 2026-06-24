@@ -15,8 +15,11 @@ import java.util.List;
 public interface SkillService {
     /**
      * Создает новый глобальный навык в системе.
+     *
      * @param skillDto данные для создания навыка (название).
+     *
      * @return полностью сформированный {@link SkillDto} с присвоенным ID.
+     *
      * @throws DataValidationException если навык с таким названием уже существует в БД.
      */
     SkillDto createSkill(CreateSkillDto skillDto);
@@ -25,6 +28,7 @@ public interface SkillService {
      * Возвращает список всех подтвержденных навыков конкретного пользователя.
      *
      * @param userId идентификатор пользователя, чьи навыки нужно получить
+     *
      * @return список {@link SkillDto} с информацией о гарантах
      */
     List<SkillDto> getByUserId(Long userId);
@@ -34,6 +38,7 @@ public interface SkillService {
      * но еще не были им приобретены.
      *
      * @param userId идентификатор текущего пользователя
+     *
      * @return список {@link SkillCandidateDto} с количеством предложений по каждому навыку
      */
     List<SkillCandidateDto> getOfferedSkills(Long userId);
@@ -43,7 +48,9 @@ public interface SkillService {
      * необходимое количество социальных подтверждений (офферов).
      *
      * @param skillId идентификатор приобретаемого навыка
+     *
      * @param userId  идентификатор пользователя, который приобретает навык
+     *
      * @throws DataValidationException если у пользователя уже есть этот навык,
      *                                 или если количество рекомендаций ниже установленного порога
      */

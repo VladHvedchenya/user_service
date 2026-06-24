@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SkillServiceImpl implements SkillService{
+public class SkillServiceImpl implements SkillService {
     @Value("${skill.required-offers:3}")
     private int requiredOffersCount;
     private final SkillRepository skillRepository;
@@ -34,8 +34,9 @@ public class SkillServiceImpl implements SkillService{
     @Override
     public SkillDto createSkill(CreateSkillDto skillDto) {
         log.info("Старт создания навыка с названием: {}", skillDto.title());
-        if (skillRepository.existsByTitle(skillDto.title()))
+        if (skillRepository.existsByTitle(skillDto.title())) {
             throw new DataValidationException("This skill already exist!");
+        }
 
         Skill skill = skillMapper.toSkill(skillDto);
         skill = skillRepository.save(skill);
@@ -64,10 +65,12 @@ public class SkillServiceImpl implements SkillService{
     @Override
     public void acquireSkillFromOffer(Long skillId, Long userId) {
         List<SkillOffer> offers = skillOfferRepository.findAllOffersOfSkill(skillId, userId);
-        if (offers.size() < requiredOffersCount)
+        if (offers.size() < requiredOffersCount) {
             throw new DataValidationException("Недостаточно рекомендаций для приобретения навыка!");
-        if (skillRepository.findUserSkill(skillId, userId).isPresent())
+        }
+        if (skillRepository.findUserSkill(skillId, userId).isPresent()) {
             throw new DataValidationException("Такой навык уже есть у вас!");
+        }
         skillRepository.assignSkillToUser(skillId, userId);
         List<UserSkillGuarantee> guarantees = offers.stream()
                 .map(

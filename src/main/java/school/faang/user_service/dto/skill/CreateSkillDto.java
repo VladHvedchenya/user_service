@@ -5,4 +5,4 @@ import jakarta.validation.constraints.NotBlank;
 public record CreateSkillDto(
         @NotBlank
         String title
-) { }
+) {}

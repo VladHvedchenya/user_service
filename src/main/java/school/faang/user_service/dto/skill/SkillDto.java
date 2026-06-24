@@ -8,4 +8,4 @@ public record SkillDto(
         Long id,
         String title,
         List<UserDto> guarantors
-) { }
+) {}
