@@ -40,3 +40,6 @@ user:
   password:
     min:
       length: 6
+
+skill:
+  required-offers: 3
