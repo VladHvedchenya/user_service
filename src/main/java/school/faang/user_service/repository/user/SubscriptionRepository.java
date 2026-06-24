@@ -27,10 +27,10 @@ public interface SubscriptionRepository extends JpaRepository<User, Long> {
     boolean existsByFollowerIdAndFolloweeId(long followerId, long followeeId);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(id) FROM subscription WHERE followee_id = :followeeId")
-    int findFollowersAmountByFolloweeId(long followeeId);
+    long findFollowersAmountByFolloweeId(long followeeId);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(id) FROM subscription WHERE follower_id = :followerId")
-    int findFolloweesAmountByFollowerId(long followerId);
+    long findFolloweesAmountByFollowerId(long followerId);
 
     @Query(nativeQuery = true, value = """
             SELECT u.* FROM users AS u
