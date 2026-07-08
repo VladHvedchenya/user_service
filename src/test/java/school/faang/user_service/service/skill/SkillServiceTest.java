@@ -55,7 +55,7 @@ public class SkillServiceTest {
     @Captor
     private ArgumentCaptor<List<UserSkillGuarantee>> userSkillGuaranteeCaptor;
 
-    private final int REQUIRED_OFFERS = 3;
+    private static final int REQUIRED_OFFERS = 3;
 
     @BeforeEach
     void setUp() {
@@ -79,7 +79,7 @@ public class SkillServiceTest {
     }
 
     @Test
-    public void testCreateSKillIfNotExist() {
+    public void testCreateSkillIfNotExist() {
         //arrange
         CreateSkillDto createSkillDto = new CreateSkillDto("Java");
         when(skillRepository.existsByTitle(createSkillDto.title())).thenReturn(false);
@@ -142,13 +142,13 @@ public class SkillServiceTest {
     @Test
     public void testGetOfferedSkills() {
         //arrange
-        Long userId = 1L;
         Skill first = new Skill();
         first.setTitle("Java");
         first.setId(1L);
         Skill second = new Skill();
         second.setTitle("Python");
         second.setId(2L);
+        Long userId = 1L;
         List<Skill> skills = List.of(first, second);
         when(skillRepository.findSkillsOfferedToUser(userId)).thenReturn(skills);
 
@@ -238,7 +238,6 @@ public class SkillServiceTest {
     public void testAcquireSkillFromOfferWhenValid() {
         //arrange
         Long skillId = 1L;
-        Long userId = 1L;
         Skill skill = new Skill();
         skill.setId(skillId);
         User receiver = new User();
@@ -259,6 +258,7 @@ public class SkillServiceTest {
         thirdOffer.setSkill(skill);
         thirdOffer.setRecommendation(recommendation);
 
+        Long userId = 1L;
         List<SkillOffer> offers = List.of(firstOffer, secondOffer, thirdOffer);
 
         when(skillOfferRepository.findAllOffersOfSkill(skillId, userId)).thenReturn(offers);

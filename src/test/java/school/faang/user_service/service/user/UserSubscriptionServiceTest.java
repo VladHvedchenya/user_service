@@ -55,7 +55,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testFollowUserWhenAlreadyFollowed(){
+    public void testFollowUserWhenAlreadyFollowed() {
         //arrange
         Long followerId = 1L;
         Long followeeId = 2L;
@@ -72,7 +72,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testFollowUserCorrectly(){
+    public void testFollowUserCorrectly() {
         //arrange
         Long followerId = 1L;
         Long followeeId = 2L;
@@ -87,7 +87,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testUnfollowUserFromHimself(){
+    public void testUnfollowUserFromHimself() {
         //arrange
         Long followerId = 1L;
         Long followeeId = 1L;
@@ -102,7 +102,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testUnfollowUserWhenNotSubscribed(){
+    public void testUnfollowUserWhenNotSubscribed() {
         //arrange
         Long followerId = 1L;
         Long followeeId = 2L;
@@ -119,7 +119,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testUnfollowUserCorrectly(){
+    public void testUnfollowUserCorrectly() {
         //arrange
         Long followerId = 1L;
         Long followeeId = 2L;
@@ -135,7 +135,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFollowersCount(){
+    public void testGetFollowersCount() {
         //arrange
         Long followeeId = 1L;
         Long expectedCount = 10L;
@@ -150,7 +150,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesCount(){
+    public void testGetFolloweesCount() {
         //arrange
         Long followerId = 1L;
         Long expectedCount = 10L;
@@ -165,7 +165,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesWithNoFilters(){
+    public void testGetFolloweesWithNoFilters() {
         //arrange
         Long userId = 1L;
         User firstUser = new User();
@@ -190,7 +190,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesWithNameFilter(){
+    public void testGetFolloweesWithNameFilter() {
         //arrange
         Long userId = 1L;
         User first = new User();
@@ -216,7 +216,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesWithPhoneFilter(){
+    public void testGetFolloweesWithPhoneFilter() {
         //arrange
         Long userId = 1L;
         User first = new User();
@@ -243,7 +243,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesWithMinExperienceFilter(){
+    public void testGetFolloweesWithMinExperienceFilter() {
         //arrange
         Long userId = 1L;
         User first = new User();
@@ -270,7 +270,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void testGetFolloweesWithMaxExperienceFilter(){
+    public void testGetFolloweesWithMaxExperienceFilter() {
         //arrange
         Long userId = 1L;
         User first = new User();
@@ -297,7 +297,7 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
-    public void getFollowersWithNoFilter(){
+    public void getFollowersWithNoFilter() {
         //arrange
         Long userId = 1L;
         User firstUser = new User();
