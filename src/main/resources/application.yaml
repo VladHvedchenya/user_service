@@ -43,3 +43,15 @@ user:
 
 skill:
   required-offers: 3
+
+s3:
+  endpoint: http://localhost:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  region: us-east-1
+  bucket: user-avatars
+
+dicebear:
+  api:
+    url: https://api.dicebear.com/10.x
+    style: pixel-art
