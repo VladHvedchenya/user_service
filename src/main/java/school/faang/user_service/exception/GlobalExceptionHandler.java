@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleDataValidationException(
             DataValidationException ex,
             HttpServletRequest request
-    ){
+    ) {
         log.warn("Business validation failed on endpoint [{}]: {}", request.getRequestURI(), ex.getMessage());
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
@@ -45,12 +45,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex,
             HttpServletRequest request
-    ){
+    ) {
         BindingResult bindingResult = ex.getBindingResult();
         List<FieldError> errors = bindingResult.getFieldErrors();
         Map<String, List<String>> messages = new HashMap<>();
 
-        for (var error : errors){
+        for (var error : errors) {
             messages
                     .computeIfAbsent(error.getField(), key -> new ArrayList<>())
                     .add(error.getDefaultMessage());
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleEntityNotFoundException(
             EntityNotFoundException ex,
             HttpServletRequest request
-    ){
+    ) {
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -91,7 +91,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleForbiddenException(
             ForbiddenException ex,
             HttpServletRequest request
-    ){
+    ) {
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.FORBIDDEN.value(),
@@ -109,7 +109,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUnexpectedException(
             Exception ex,
             HttpServletRequest request
-    ){
+    ) {
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
