@@ -1,6 +1,6 @@
 package school.faang.user_service;
 
-import com.redis.testcontainers.RedisContainer;
+import org.testcontainers.containers.GenericContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -20,20 +20,20 @@ class ApplicationContextTest {
             new PostgreSQLContainer<>("postgres:13.6");
 
     @Container
-    private static final RedisContainer REDIS_CONTAINER =
-            new RedisContainer(DockerImageName.parse("redis/redis-stack:latest"));
+    private static final GenericContainer<?> REDIS_CONTAINER =
+            new GenericContainer<>(DockerImageName.parse("redis/redis-stack:latest"))
+                    .withExposedPorts(6379);
 
     @Container
-    static final MinIOContainer MINIO_CONTAINER = new MinIOContainer("minio/minio:RELEASE.2023-09-04T19-57-37Z")
+    static final MinIOContainer MINIO_CONTAINER = new MinIOContainer(
+            DockerImageName.parse("quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z")
+                    .asCompatibleSubstituteFor("minio/minio")
+    )
             .withUserName("user")
             .withPassword("password");
 
     @DynamicPropertySource
-    static void postgresqlProperties(DynamicPropertyRegistry registry) {
-        POSTGRESQL_CONTAINER.start();
-        REDIS_CONTAINER.start();
-        MINIO_CONTAINER.start();
-
+    static void registerProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRESQL_CONTAINER::getJdbcUrl);
         registry.add("spring.datasource.username", POSTGRESQL_CONTAINER::getUsername);
         registry.add("spring.datasource.password", POSTGRESQL_CONTAINER::getPassword);
@@ -41,9 +41,10 @@ class ApplicationContextTest {
         registry.add("spring.data.redis.port", () -> REDIS_CONTAINER.getMappedPort(6379));
         registry.add("spring.data.redis.host", REDIS_CONTAINER::getHost);
 
-        registry.add("services.minio.endpoint", MINIO_CONTAINER::getS3URL);
-        registry.add("services.minio.accessKey", MINIO_CONTAINER::getUserName);
-        registry.add("services.minio.secretKey", MINIO_CONTAINER::getPassword);
+        registry.add("s3.endpoint", MINIO_CONTAINER::getS3URL);
+        registry.add("s3.accessKey", MINIO_CONTAINER::getUserName);
+        registry.add("s3.secretKey", MINIO_CONTAINER::getPassword);
+        registry.add("s3.region", () -> "us-east-1");
     }
 
     @Test
