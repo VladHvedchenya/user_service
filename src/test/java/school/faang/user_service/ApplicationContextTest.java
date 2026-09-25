@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MinIOContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -24,14 +23,6 @@ class ApplicationContextTest {
             new GenericContainer<>(DockerImageName.parse("redis/redis-stack:latest"))
                     .withExposedPorts(6379);
 
-    @Container
-    static final MinIOContainer MINIO_CONTAINER = new MinIOContainer(
-            DockerImageName.parse("quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z")
-                    .asCompatibleSubstituteFor("minio/minio")
-    )
-            .withUserName("user")
-            .withPassword("password");
-
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRESQL_CONTAINER::getJdbcUrl);
@@ -40,11 +31,6 @@ class ApplicationContextTest {
 
         registry.add("spring.data.redis.port", () -> REDIS_CONTAINER.getMappedPort(6379));
         registry.add("spring.data.redis.host", REDIS_CONTAINER::getHost);
-
-        registry.add("s3.endpoint", MINIO_CONTAINER::getS3URL);
-        registry.add("s3.accessKey", MINIO_CONTAINER::getUserName);
-        registry.add("s3.secretKey", MINIO_CONTAINER::getPassword);
-        registry.add("s3.region", () -> "us-east-1");
     }
 
     @Test

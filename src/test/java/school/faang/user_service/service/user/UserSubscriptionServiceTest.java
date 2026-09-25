@@ -270,6 +270,33 @@ public class UserSubscriptionServiceTest {
     }
 
     @Test
+    public void testGetFolloweesWithMinExperienceFilterShouldSkipUsersWithNullExperience() {
+        //arrange
+        Long userId = 1L;
+        User first = new User();
+        User second = new User();
+        first.setExperience(null);
+        second.setExperience(20);
+        when(subscriptionRepository.findByFollowerId(userId)).thenAnswer(
+                inv -> Stream.of(first, second)
+        );
+        when(userMapper.toUserDto(any())).thenAnswer(
+                inv -> new UserDto(
+                        1L, "test", "test", "test", "test"
+                )
+        );
+        UserFiltersDto minExperienceFilter = new UserFiltersDto(null, null, 15, null);
+
+        //act
+        List<UserDto> users = userSubscriptionService.getFollowees(userId, minExperienceFilter);
+
+        //assert
+        assertEquals(1, users.size());
+        verify(subscriptionRepository).findByFollowerId(userId);
+        verify(userMapper, times(1)).toUserDto(any());
+    }
+
+    @Test
     public void testGetFolloweesWithMaxExperienceFilter() {
         //arrange
         Long userId = 1L;
@@ -277,6 +304,33 @@ public class UserSubscriptionServiceTest {
         User second = new User();
         first.setExperience(10);
         second.setExperience(20);
+        when(subscriptionRepository.findByFollowerId(userId)).thenAnswer(
+                inv -> Stream.of(first, second)
+        );
+        when(userMapper.toUserDto(any())).thenAnswer(
+                inv -> new UserDto(
+                        1L, "test", "test", "test", "test"
+                )
+        );
+        UserFiltersDto maxExperienceFilter = new UserFiltersDto(null, null, null, 15);
+
+        //act
+        List<UserDto> users = userSubscriptionService.getFollowees(userId, maxExperienceFilter);
+
+        //assert
+        assertEquals(1, users.size());
+        verify(subscriptionRepository).findByFollowerId(userId);
+        verify(userMapper, times(1)).toUserDto(any());
+    }
+
+    @Test
+    public void testGetFolloweesWithMaxExperienceFilterShouldSkipUsersWithNullExperience() {
+        //arrange
+        Long userId = 1L;
+        User first = new User();
+        User second = new User();
+        first.setExperience(null);
+        second.setExperience(10);
         when(subscriptionRepository.findByFollowerId(userId)).thenAnswer(
                 inv -> Stream.of(first, second)
         );
