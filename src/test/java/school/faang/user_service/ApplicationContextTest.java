@@ -26,8 +26,7 @@ class ApplicationContextTest {
 
     @Container
     static final MinIOContainer MINIO_CONTAINER = new MinIOContainer(
-            DockerImageName.parse("quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z")
-                    .asCompatibleSubstituteFor("minio/minio")
+            DockerImageName.parse("minio/minio:RELEASE.2023-09-04T19-57-37Z")
     )
             .withUserName("user")
             .withPassword("password");
