@@ -97,8 +97,8 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
                         || filters.phonePattern().isBlank()
                         || (user.getPhone() != null && user.getPhone().contains(filters.phonePattern())))
                 .filter(user -> filters.experienceMin() == null
-                        || (user.getExperience() >= filters.experienceMin()))
+                        || (user.getExperience() != null && user.getExperience() >= filters.experienceMin()))
                 .filter(user -> filters.experienceMax() == null
-                        || (user.getExperience() <= filters.experienceMax()));
+                        || (user.getExperience() != null && user.getExperience() <= filters.experienceMax()));
     }
 }
