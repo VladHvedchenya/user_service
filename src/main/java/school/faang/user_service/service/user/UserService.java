@@ -4,6 +4,8 @@ import school.faang.user_service.dto.user.CreateUserDto;
 import school.faang.user_service.dto.user.UpdateUserDto;
 import school.faang.user_service.dto.user.UserDto;
 
+import java.io.InputStream;
+
 /**
  * Сервис для управления пользователями.
  * Предоставляет методы для создания, обновления и получения информации о пользователях.
@@ -55,6 +57,13 @@ public interface UserService {
      * @return объект {@link UserDto}, содержащий данные пользователя
      */
     UserDto getById(long userId);
+
+    /**
+     * Imports users from a CSV input stream.
+     *
+     * @param inputStream stream with CSV file content
+     */
+    void importUsers(InputStream inputStream);
 }
 
 
