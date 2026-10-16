@@ -1,6 +1,7 @@
 package school.faang.user_service.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import school.faang.user_service.dto.user.CreateUserDto;
 import school.faang.user_service.dto.user.UpdateUserDto;
@@ -14,5 +15,6 @@ public interface UserMapper {
 
     void update(UpdateUserDto userDto, @MappingTarget User entity);
 
+    @Mapping(target = "preference", source = "contactPreference.preference")
     UserDto toUserDto(User user);
 }

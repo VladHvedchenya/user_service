@@ -177,7 +177,7 @@ public class UserSubscriptionServiceTest {
                         "test",
                         "test@gmail.com",
                         "testPhone",
-                        "test")
+                        "test", null)
         );
 
         //act
@@ -201,7 +201,7 @@ public class UserSubscriptionServiceTest {
                 .thenAnswer(inv -> Stream.of(first, second));
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "Vlad", "test", "test", "test"
+                        1L, "Vlad", "test", "test", "test", null
                 )
         );
         UserFiltersDto nameFilter = new UserFiltersDto("vla", null, null, null);
@@ -228,7 +228,7 @@ public class UserSubscriptionServiceTest {
         );
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "test", "test", "test", "test"
+                        1L, "test", "test", "test", "test", null
                 )
         );
         UserFiltersDto phoneFilter = new UserFiltersDto(null, "375297", null, null);
@@ -255,7 +255,7 @@ public class UserSubscriptionServiceTest {
         );
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "test", "test", "test", "test"
+                        1L, "test", "test", "test", "test", null
                 )
         );
         UserFiltersDto minExperienceFilter = new UserFiltersDto(null, null, 15, null);
@@ -282,7 +282,7 @@ public class UserSubscriptionServiceTest {
         );
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "test", "test", "test", "test"
+                        1L, "test", "test", "test", "test", null
                 )
         );
         UserFiltersDto minExperienceFilter = new UserFiltersDto(null, null, 15, null);
@@ -309,7 +309,7 @@ public class UserSubscriptionServiceTest {
         );
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "test", "test", "test", "test"
+                        1L, "test", "test", "test", "test", null
                 )
         );
         UserFiltersDto maxExperienceFilter = new UserFiltersDto(null, null, null, 15);
@@ -336,7 +336,7 @@ public class UserSubscriptionServiceTest {
         );
         when(userMapper.toUserDto(any())).thenAnswer(
                 inv -> new UserDto(
-                        1L, "test", "test", "test", "test"
+                        1L, "test", "test", "test", "test", null
                 )
         );
         UserFiltersDto maxExperienceFilter = new UserFiltersDto(null, null, null, 15);
@@ -363,7 +363,7 @@ public class UserSubscriptionServiceTest {
                         "test",
                         "test@gmail.com",
                         "testPhone",
-                        "test")
+                        "test", null)
         );
 
         //act
